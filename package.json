@@ -1,0 +1,17 @@
+{
+  "name": "node-read-hg-xml",
+  "version": "0.0.1",
+  "description": "Read!",
+  "main": "server.js",
+  "author": "salek",
+  "dependencies": {
+    "concat-stream": "^2.0.0",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "fs": "latest",
+    "https": "latest",
+    "request": "^2.88.2",
+    "retry": "latest",
+    "xml2js": "^0.4.23"
+  }
+}

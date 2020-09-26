@@ -1,0 +1,139 @@
+{
+	"flPostingEnabled": true,
+	"flAtMostOnePostPerMinute": false,
+	"feeds": [
+		{
+			"name": "run",
+			"enabled": true,
+			"xmlChannel": "run",
+			"xmlChannelIndex": 0,
+			"slack": {
+				"type": "_detected a *run* message: _",
+				"urlWebHook": "https://hooks.slack.com/services/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",
+				"channel": "#hgruns",
+				"emojiIcon": ":hgxml:",
+				"hookName": "HG XML reader",
+				"attachments":[
+					 {
+						"fallback":"Fallback",
+						"text": "Text",
+						"color":"#DD5533",
+						"mrkdwn_in":["pretext", "text", "fields"],
+						"fields":[
+								 {
+									"title":"Title",
+									"value":"Value",
+									"short":true
+								 },
+								 {
+									 "title":"Title",
+									 "value":"Value",
+									 "short":true
+								 }
+							]
+					 }
+				]
+			}
+		},
+		{
+			"name": "message",
+			"enabled": false,
+			"xmlChannel": "message",
+			"xmlChannelIndex": 3,
+			"slack": {
+				"type": "_detected a *chat* message: _",
+				"urlWebHook": "https://hooks.slack.com/services/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",
+				"channel": "#hgchat",
+				"emojiIcon": ":hgxml:",
+				"hookName": "HG XML reader",
+				"attachments":[
+					 {
+						"fallback":"Fallback",
+						"text": "Text",
+						"color":"#FFAA33",
+						"mrkdwn_in":["pretext", "text", "fields"],
+						"fields":[
+								 {
+									"title":"Title",
+									"value":"Value",
+									"short":true
+								 },
+								 {
+									 "title":"Title",
+									 "value":"Value",
+									 "short":true
+								 }
+							]
+					 }
+				]
+			}
+		},
+		{
+			"name": "newbie",
+			"enabled": false,
+			"xmlChannel": "newbie",
+			"xmlChannelIndex": 2,
+			"slack": {
+				"type": "_detected a *newbie* message: _",
+				"urlWebHook": "https://hooks.slack.com/services/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",
+				"channel": "#hgnewbie",
+				"emojiIcon": ":hgxml:",
+				"hookName": "HG XML reader",
+				"attachments":[
+					 {
+						"fallback":"Fallback",
+						"text": "Text",
+						"color":"#99EE22",
+						"mrkdwn_in":["pretext", "text", "fields"],
+						"fields":[
+								 {
+									"title":"Title",
+									"value":"Value",
+									"short":true
+								 },
+								 {
+									 "title":"Title",
+									 "value":"Value",
+									 "short":true
+								 }
+							]
+					 }
+				]
+			}
+		},
+		{
+			"name": "bazaar",
+			"enabled": true,
+			"xmlChannel": "bazaar",
+			"xmlChannelIndex": 1,
+			"slack": {
+				"type": "_detected a *bazaar* message: _",
+				"urlWebHook": "https://hooks.slack.com/services/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",
+				"channel": "#hgbazaar",
+				"emojiIcon": ":hgxml:",
+				"hookName": "HG XML reader",
+				"attachments":[
+					 {
+						"fallback":"Fallback",
+						"text": "Text",
+						"color":"#E044E0",
+						"mrkdwn_in":["pretext", "text", "fields"],
+						"fields":[
+								 {
+									"title":"Title",
+									"value":"Value",
+									"short":true
+								 },
+								 {
+									 "title":"Title",
+									 "value":"Value",
+									 "short":true
+								 }
+							]
+					 }
+				]
+			}
+		}
+
+	]
+}
