@@ -20,14 +20,26 @@ const stat_file = "stats.json";
 if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
 }
-  
+
 const token = process.env.TOKEN;
 const channelID = process.env.CHANNEL
+const interval = process.env.INTERVAL_MS
+const feedToServe = process.env.FEED
 
 const channelNWNHigherGroundsRuns = "285255258622394369"
 const channelNWNHigherGroundsTrade = "751457838345486406"
 
 const client = new Discord.Client();
+
+var logger = require('winston');
+// var auth = require('./auth.json');
+
+// Configure logger settings
+logger.remove(logger.transports.Console);
+logger.add(new logger.transports.Console, {
+	colorize: true
+});
+logger.level = 'debug';
 
 var appConfig;
 var appStats = {
@@ -59,7 +71,7 @@ function refresh_xml() {
 
 			var str = buffer.toString();
 			parser.parseString(str, function (err, result) {
-				console.log('Finished parsing at ' + (new Date()).toISOString());
+				logger.info('Finished parsing at ' + (new Date()).toISOString());
 				//console.log('Finished parsing:', err, result);
 
 				if (typeof result !== 'undefined') {
@@ -108,7 +120,7 @@ function refresh_xml() {
 
 }
 
-function send_to_discord(messagetext, messageplayer, sender, time) {
+function send_to_discord(messagetext, messageplayer, sender, time, server, channelID, color) {
 
 	const text = messagetext;
 	const player = messageplayer;
@@ -120,12 +132,19 @@ function send_to_discord(messagetext, messageplayer, sender, time) {
 	// const emojiList = message.guild.emojis.map((e, x) => (x + ' = ' + e) + ' | ' +e.name).join('\n');
 	// message.channel.send(emojiList);
 
+	if (server && server != "") {
+		desc = `${player}:\n**${text}**\n*Server: ${server}*`
+	} else {
+		desc = `${player}:\n**${text}**`
+	}
+
 	const embed = {
 		// "title": `${icon} detected a *run* message:`,
 		// "title": `${player}:`,
-		"description": `${player}:\n**${text}**`,
+		"description": desc,
 		// "url": "https://discordapp.com",
-		"color": 0xe044e0,
+		// "color": 0xe044e0,
+		"color": color,
 		// "timestamp": "2018-03-30T08:55:50.533Z",
 		// "timestamp": time,
 		"footer": {
@@ -142,31 +161,31 @@ function send_to_discord(messagetext, messageplayer, sender, time) {
 		// 	"icon_url": "https://cdn.discordapp.com/embed/avatars/0.png"
 		// },
 		// "fields": [
-			// {
-			// 	"name": "Sender:",
-			// 	"value": player,
-			// 	// "inline": true
-			// 	"inline": false
-			// },
-			// {
-			// 	"name": "Ingame timestamp:",
-			// 	"value": `Ingame timestamp: **${time}**`,
-			// 	"inline": true
-			// }
+		// {
+		// 	"name": "Sender:",
+		// 	"value": player,
+		// 	// "inline": true
+		// 	"inline": false
+		// },
+		// {
+		// 	"name": "Ingame timestamp:",
+		// 	"value": `Ingame timestamp: **${time}**`,
+		// 	"inline": true
+		// }
 		// ]
 	};
 
 	var channel = client.channels.cache.get(channelID);
-	console.log(embed);
-	// channel.send({ embed });
+	logger.info(embed);
+	channel.send({ embed });
 }
 
 // REVIEW: Are message still not displayed in order by discord?
 function scan_list_for_new_messages(list, date_stamp, feed) {
 	var i, s, len = list.message.length;
 	//console.log('# of items: ' + list.message.length);
-	console.log('timestamp used: ' + date_stamp);
-	console.log('feed: ' + feed.name);
+	logger.info('timestamp used: ' + date_stamp);
+	logger.info('feed: ' + feed.name);
 
 	var list_as_array = Array.prototype.slice.call(list.message);
 
@@ -209,7 +228,7 @@ function scan_list_for_new_messages(list, date_stamp, feed) {
 				//console.log(s.channel + " - " + s.senttime + " - " + s.sender + ": " + s.text);
 				if (new Date(s.senttime) > new Date(date_stamp)) {
 					sendItem(s, feed);
-					console.log("Send: " + s.channel + " - " + s.type + " / " + s.senttime + " - " + s.sender + ": " + s.text);
+					logger.info("Send: " + s.channel + " - " + s.type + " / " + s.senttime + " - " + s.sender + ": " + s.text);
 				}
 			}
 		}
@@ -218,14 +237,24 @@ function scan_list_for_new_messages(list, date_stamp, feed) {
 
 function sendItem(item, feed) {
 	if (appConfig.flPostingEnabled) {
-		console.log(feed.name + ": " + item.text);
-		if (feed.slack !== undefined) {
-			if (item.text !== undefined) {
-				var s = item.text;
-				if (item.link !== undefined) {
-					s += ". <" + item.link + "|" + slackLinkText + ">";
-				}
-				send_to_discord(s, item.player, item.sender, item.senttime);
+		logger.info(feed.name + ": " + item.text);
+		logger.info("FeedToServe:" + feedToServe);
+
+		//TODO: implement switch Discord/Slack
+		// if (feed.slack !== undefined) {
+		// 	if (item.text !== undefined) {
+		// 		var s = item.text;
+		// 		if (item.link !== undefined) {
+		// 			s += ". <" + item.link + "|" + slackLinkText + ">";
+		// 		}
+		// 		if (feed.name === feedToServe) {
+		// 			send_to_discord(s, item.player, item.sender, item.senttime, item.server);
+		// 		}
+		// 	}
+		// }
+		if (feed.discord !== undefined) {
+			if (feed.enabled) {
+				send_to_discord(item.text, item.player, item.sender, item.senttime, item.server, feed.discord.channelID, feed.discord.color);
 			}
 		}
 	}
@@ -310,13 +339,13 @@ client.on('guildMemberAdd', member => {
 
 client.on("guildCreate", guild => {
 	// This event triggers when the bot joins a guild.
-	console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
+	logger.info(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
 	client.user.setGame(`on ${client.guilds.size} servers`);
 });
 
 client.on("guildDelete", guild => {
 	// this event triggers when the bot is removed from a guild.
-	console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
+	logger.info(`I have been removed from: ${guild.name} (id: ${guild.id})`);
 	client.user.setGame(`on ${client.guilds.size} servers`);
 });
 
@@ -326,7 +355,11 @@ function logMapElements(value, key, map) {
 
 client.on("ready", () => {
 	client.emojis.cache.forEach(logMapElements);
-	send_to_discord("Starting service", "Bot", "bot", new Date().toISOString().split('.')[0]+"Z" );
+	// send_to_discord("Starting service", "Bot status message", "bot", new Date().toISOString().split('.')[0] + "Z");
+
+	logger.info('Connected');
+	logger.info('Logged in as: ');
+	logger.info(client.username + ' - (' + client.id + ')');
 });
 
 client.login(token);
@@ -335,9 +368,9 @@ process.on('unhandledRejection', error => console.error(`Uncaught Promise Reject
 
 readConfig(function () {
 	readStats(function () {
-		console.log("\n" + ProjectName + " v" + Version + ".");
+		logger.info("\n" + ProjectName + " v" + Version + ".");
 		refresh_xml();
-		setInterval(refresh_xml, 30000);
+		setInterval(refresh_xml, interval);
 		//		setInterval (refresh_xml, 5000);
 		setInterval(everySecond, 1000);
 	});

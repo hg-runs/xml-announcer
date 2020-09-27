@@ -13,31 +13,39 @@
 				"channel": "#hgruns",
 				"emojiIcon": ":hgxml:",
 				"hookName": "HG XML reader",
-				"attachments":[
-					 {
-						"fallback":"Fallback",
+				"attachments": [
+					{
+						"fallback": "Fallback",
 						"text": "Text",
-						"color":"#DD5533",
-						"mrkdwn_in":["pretext", "text", "fields"],
-						"fields":[
-								 {
-									"title":"Title",
-									"value":"Value",
-									"short":true
-								 },
-								 {
-									 "title":"Title",
-									 "value":"Value",
-									 "short":true
-								 }
-							]
-					 }
+						"color": "#DD5533",
+						"mrkdwn_in": [
+							"pretext",
+							"text",
+							"fields"
+						],
+						"fields": [
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							},
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							}
+						]
+					}
 				]
+			},
+			"discord": {
+				"channelID": "426339936044843018",
+				"color": "#DD5533"
 			}
 		},
 		{
 			"name": "message",
-			"enabled": false,
+			"enabled": true,
 			"xmlChannel": "message",
 			"xmlChannelIndex": 3,
 			"slack": {
@@ -46,31 +54,39 @@
 				"channel": "#hgchat",
 				"emojiIcon": ":hgxml:",
 				"hookName": "HG XML reader",
-				"attachments":[
-					 {
-						"fallback":"Fallback",
+				"attachments": [
+					{
+						"fallback": "Fallback",
 						"text": "Text",
-						"color":"#FFAA33",
-						"mrkdwn_in":["pretext", "text", "fields"],
-						"fields":[
-								 {
-									"title":"Title",
-									"value":"Value",
-									"short":true
-								 },
-								 {
-									 "title":"Title",
-									 "value":"Value",
-									 "short":true
-								 }
-							]
-					 }
+						"color": "#FFAA33",
+						"mrkdwn_in": [
+							"pretext",
+							"text",
+							"fields"
+						],
+						"fields": [
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							},
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							}
+						]
+					}
 				]
+			},
+			"discord": {
+				"channelID": "759792027348631552",
+				"color": "#FFAA33"
 			}
 		},
 		{
 			"name": "newbie",
-			"enabled": false,
+			"enabled": true,
 			"xmlChannel": "newbie",
 			"xmlChannelIndex": 2,
 			"slack": {
@@ -79,26 +95,34 @@
 				"channel": "#hgnewbie",
 				"emojiIcon": ":hgxml:",
 				"hookName": "HG XML reader",
-				"attachments":[
-					 {
-						"fallback":"Fallback",
+				"attachments": [
+					{
+						"fallback": "Fallback",
 						"text": "Text",
-						"color":"#99EE22",
-						"mrkdwn_in":["pretext", "text", "fields"],
-						"fields":[
-								 {
-									"title":"Title",
-									"value":"Value",
-									"short":true
-								 },
-								 {
-									 "title":"Title",
-									 "value":"Value",
-									 "short":true
-								 }
-							]
-					 }
+						"color": "#99EE22",
+						"mrkdwn_in": [
+							"pretext",
+							"text",
+							"fields"
+						],
+						"fields": [
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							},
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							}
+						]
+					}
 				]
+			},
+			"discord": {
+				"channelID": "759792001016135730",
+				"color": "#DD5533"
 			}
 		},
 		{
@@ -112,28 +136,35 @@
 				"channel": "#hgbazaar",
 				"emojiIcon": ":hgxml:",
 				"hookName": "HG XML reader",
-				"attachments":[
-					 {
-						"fallback":"Fallback",
+				"attachments": [
+					{
+						"fallback": "Fallback",
 						"text": "Text",
-						"color":"#E044E0",
-						"mrkdwn_in":["pretext", "text", "fields"],
-						"fields":[
-								 {
-									"title":"Title",
-									"value":"Value",
-									"short":true
-								 },
-								 {
-									 "title":"Title",
-									 "value":"Value",
-									 "short":true
-								 }
-							]
-					 }
+						"color": "#E044E0",
+						"mrkdwn_in": [
+							"pretext",
+							"text",
+							"fields"
+						],
+						"fields": [
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							},
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							}
+						]
+					}
 				]
+			},
+			"discord": {
+				"channelID": "759779814042632192",
+				"color": "#E044E0"
 			}
 		}
-
 	]
 }
