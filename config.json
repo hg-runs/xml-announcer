@@ -5,6 +5,7 @@
 		{
 			"name": "run",
 			"enabled": true,
+			"logMessage": true,
 			"xmlChannel": "run",
 			"xmlChannelIndex": 0,
 			"slack": {
@@ -39,13 +40,14 @@
 				]
 			},
 			"discord": {
-				"channelID": "426339936044843018",
+				"channelIDs": ["426339936044843018", "285255258622394369"],
 				"color": "#DD5533"
 			}
 		},
 		{
 			"name": "message",
 			"enabled": true,
+			"logMessage": true,
 			"xmlChannel": "message",
 			"xmlChannelIndex": 3,
 			"slack": {
@@ -80,13 +82,14 @@
 				]
 			},
 			"discord": {
-				"channelID": "759792027348631552",
+				"channelIDs": ["759792027348631552", "760879266795094077"],
 				"color": "#FFAA33"
 			}
 		},
 		{
 			"name": "newbie",
 			"enabled": true,
+			"logMessage": true,
 			"xmlChannel": "newbie",
 			"xmlChannelIndex": 2,
 			"slack": {
@@ -121,13 +124,14 @@
 				]
 			},
 			"discord": {
-				"channelID": "759792001016135730",
-				"color": "#DD5533"
+				"channelIDs": ["759792001016135730"],
+				"color": "#99EE23"
 			}
 		},
 		{
 			"name": "bazaar",
 			"enabled": true,
+			"logMessage": true,
 			"xmlChannel": "bazaar",
 			"xmlChannelIndex": 1,
 			"slack": {
@@ -162,7 +166,49 @@
 				]
 			},
 			"discord": {
-				"channelID": "759779814042632192",
+				"channelIDs": ["759779814042632192", "751457838345486406"],
+				"color": "#E044E0"
+			}
+		},
+		{
+			"name": "guild",
+			"enabled": false,
+			"logMessage": false,
+			"xmlChannel": "guild",
+			"xmlChannelIndex": 1,
+			"slack": {
+				"type": "_detected a *bazaar* message: _",
+				"urlWebHook": "https://hooks.slack.com/services/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",
+				"channel": "#hgbazaar",
+				"emojiIcon": ":hgxml:",
+				"hookName": "HG XML reader",
+				"attachments": [
+					{
+						"fallback": "Fallback",
+						"text": "Text",
+						"color": "#E044E0",
+						"mrkdwn_in": [
+							"pretext",
+							"text",
+							"fields"
+						],
+						"fields": [
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							},
+							{
+								"title": "Title",
+								"value": "Value",
+								"short": true
+							}
+						]
+					}
+				]
+			},
+			"discord": {
+				"channelIDs": [""],
 				"color": "#E044E0"
 			}
 		}
