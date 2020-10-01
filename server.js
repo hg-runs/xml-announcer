@@ -1,4 +1,5 @@
-var Version = "0.021", ProjectName = "Interface: HG XML to Discord";
+//jshint esversion: 6
+var Version = "0.045", ProjectName = "Interface: HG XML to Discord";
 
 
 var https = require('https');
@@ -215,8 +216,10 @@ function send_to_discord(messagetext, messageplayer, sender, time, server, chann
 		// console.log(c)
 		// console.log(channelIDs[c])
 		var channel = client.channels.cache.get(channelIDs[c]);
-		logger.info(embed);
-		channel.send({ embed });
+		// logger.info(embed);
+		channel.send({ embed })
+			.then(logger.info)
+			.catch(logger.error);
 		// channel.send({ files: [file], embed: embed });
 	}
 }
